@@ -17,9 +17,10 @@
         <div class="mb-3">
             <label for="usuario" class="form-label">Usuario</label>
             <select class="form-select" id="usuario" th:field="*{usuario}" required>
-                <option th:each="usuario : ${usuario}" th:value="${usuario.id}" th:text="${usuario.nombre}"></option>
+                <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}"></option>
             </select>
         </div>
+
 
         <!-- Número de Asientos -->
         <div class="mb-3">
@@ -53,9 +54,8 @@
         <div class="mb-3">
             <label for="viajes" class="form-label">Viajes</label>
             <select class="form-select" id="viajes" th:field="*{viajes}" multiple required>
-                <option th:each="viaje : ${viajes}"
-                        th:value="${viaje.id}"
-                        th:text="${viaje.origen.nombre} + ' - ' + ${viaje.destino.nombre}"></option>
+                <option th:each="viaje : ${viajes}" th:value="${viaje.id}"
+                        th:text="${#strings.concat(viaje.origen.nombre, ' - ', viaje.destino.nombre)}"></option>
             </select>
         </div>
 

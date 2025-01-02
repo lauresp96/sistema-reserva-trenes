@@ -39,14 +39,14 @@
             <td th:text="${reserva.precioTotal}"></td>
 
             <!-- Fecha de Reserva -->
-            <td th:text="${#dates.format(reserva.fechaReserva, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${#temporals.format(reserva.fechaReserva, 'dd/MM/yyyy HH:mm')}"></td>
 
             <!-- Estado -->
             <td th:text="${reserva.estado}"></td>
 
             <!-- Viaje -->
             <td>
-                <span th:each="viaje : ${reserva.viajes}" th:text="${viaje.origen.nombre + ' - ' + viaje.destino.nombre}"></span>
+                <span th:each="viaje : ${reserva.viajes}"></span>
             </td>
 
             <!-- Acciones -->

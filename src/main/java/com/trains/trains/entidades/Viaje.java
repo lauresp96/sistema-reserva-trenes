@@ -3,12 +3,10 @@ package com.trains.trains.entidades;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,7 +32,7 @@ public class Viaje {
             joinColumns = @JoinColumn(name = "viaje_id"),
             inverseJoinColumns = @JoinColumn(name = "estacion_id"))
     @JsonIgnore
-    private List<Estacion> estaciones;
+    private List<Estacion> estaciones = new ArrayList<>();
 
     @ManyToMany(mappedBy = "viajes")
     private List<Reserva> reservas;
@@ -127,5 +125,10 @@ public class Viaje {
 
     public void setRuta(Ruta ruta) {
         this.ruta = ruta;
+    }
+
+    @Override
+    public String toString() {
+        return origen.getNombre() + " - " + destino.getNombre();
     }
 }

@@ -34,6 +34,7 @@ public class Admin_ReservaController {
         List<Reserva> reservas = reservaService.mostrarTodos();
         List<Usuario> usuarios = usuarioService.mostrarTodos();
         List<Viaje> viajes = viajeService.mostrarTodos();
+
         model.addAttribute("reservas", reservas);
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("viajes", viajes);
@@ -43,9 +44,13 @@ public class Admin_ReservaController {
 
     @GetMapping("/crear")
     public String formularioCreacionReserva(Model model) {
+        List<Viaje> viajes = viajeService.mostrarTodos();
+        List<Usuario> usuarios = usuarioService.mostrarTodos();
+
         model.addAttribute("reserva", new Reserva());
-        model.addAttribute("usuario", usuarioService.mostrarTodos());
-        model.addAttribute("viaje", viajeService.mostrarTodos());
+        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("viajes", viajes);
+
         return "admin/reserva-form";
     }
 
@@ -62,10 +67,11 @@ public class Admin_ReservaController {
         Reserva reserva = reservaService.encontrarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
         model.addAttribute("reserva", reserva);
-        model.addAttribute("usuario", usuarioService.mostrarTodos());
-        model.addAttribute("viaje", viajeService.mostrarTodos());
+        model.addAttribute("usuarios", usuarioService.mostrarTodos());
+        model.addAttribute("viajes", viajeService.mostrarTodos());
         return "admin/reserva-form";
     }
+
 
     @PostMapping("/editar/{id}")
     public String guardarEdicion(@PathVariable Long id, @ModelAttribute Reserva reserva) throws Exception {

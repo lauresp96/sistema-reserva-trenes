@@ -1,5 +1,6 @@
 package com.trains.trains.controladores.Admin;
 
+import com.trains.trains.entidades.Estacion;
 import com.trains.trains.entidades.Viaje;
 import com.trains.trains.servicios.EstacionService;
 import com.trains.trains.servicios.RutaService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -45,10 +47,17 @@ public class Admin_ViajeController {
 
     @PostMapping("/guardar")
     public String guardarViaje(@ModelAttribute Viaje viaje) throws Exception {
-        viaje.getEstaciones();
-        viaje.getDestino();
-        viaje.getRuta();
-        viaje.getTren();
+        Estacion origen = estacionService.encontrarPorId(viaje.getOrigen().getId()).orElseThrow(() -> new RuntimeException("Origen no encontrado"));
+        Estacion destino = estacionService.encontrarPorId(viaje.getDestino().getId()).orElseThrow(() -> new RuntimeException("Destino no encontrado"));
+
+        viaje.setOrigen(origen);
+        viaje.setDestino(destino);
+        if (viaje.getEstaciones() == null) {
+            viaje.setEstaciones(new ArrayList<>());
+        }
+        viaje.getEstaciones().add(origen);
+        viaje.getEstaciones().add(destino);
+
         viajeService.guardar(viaje);
         return "redirect:/admin/viajes";
     }
