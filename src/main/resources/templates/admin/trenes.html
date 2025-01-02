@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Trenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Lista de Trenes</h1>
+
+    <a href="/admin/trenes/crear" class="btn btn-primary mb-3">Crear Nuevo Tren</a>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre del Tren</th>
+            <th>Tipo de Tren</th>
+            <th>Capacidad</th>
+            <th>Modelo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Recorremos la lista de trenes -->
+        <tr th:each="tren : ${usuarios}">
+            <td th:text="${tren.id}"></td>
+            <td th:text="${tren.nombreTren}"></td>
+            <td th:text="${tren.tipoTren}"></td>
+            <td th:text="${tren.capacidad}"></td>
+            <td th:text="${tren.modelo}"></td>
+            <td>
+                <!-- Botón Editar -->
+                <a th:href="@{/admin/trenes/editar/{id}(id=${tren.id})}" class="btn btn-warning btn-sm">Editar</a>
+
+                <!-- Botón Eliminar -->
+                <form th:action="@{/admin/trenes/eliminar/{id}(id=${tren.id})}" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/admin" class="btn btn-secondary mt-3">Volver a Administración</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${ruta.id == null ? 'Crear Nueva Ruta' : 'Editar Ruta'}"></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 th:text="${ruta.id == null ? 'Crear Nueva Ruta' : 'Editar Ruta'}"></h1>
+
+  <form th:action="@{${ruta.id == null ? '/admin/rutas/guardar' : '/admin/rutas/editar/' + ruta.id}}"
+        th:object="${ruta}" method="post">
+
+    <!-- Nombre de la Ruta -->
+    <div class="mb-3">
+      <label for="nombreRuta" class="form-label">Nombre de la Ruta</label>
+      <input type="text" class="form-control" id="nombreRuta" th:field="*{nombreRuta}" required>
+    </div>
+
+    <!-- Descripción -->
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
+    </div>
+
+    <!-- Botones -->
+    <button type="submit" class="btn btn-primary">Guardar Ruta</button>
+  </form>
+
+  <!-- Botón Volver a Administración -->
+  <a href="/admin" class="btn btn-secondary mt-3">Volver a Administración</a>
+
+  <a href="/admin/rutas" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+</body>
+</html>

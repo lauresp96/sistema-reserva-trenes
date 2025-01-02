@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${usuario.id == null ? 'Crear Nuevo Tren' : 'Editar Tren'}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 th:text="${usuario.id == null ? 'Crear Nuevo Tren' : 'Editar Tren'}"></h1>
+
+    <!-- Acción del formulario cambia dependiendo si es crear o editar -->
+    <form th:action="@{${usuario.id == null ? '/admin/trenes/guardar' : '/admin/trenes/editar/' + usuario.id}}"
+          th:object="${usuario}" method="post">
+
+        <div class="mb-3">
+            <label for="nombreTren" class="form-label">Nombre del Tren</label>
+            <input type="text" class="form-control" id="nombreTren" th:field="*{nombreTren}"
+                   placeholder="Nombre del Tren" required>
+        </div>
+        <div class="mb-3">
+            <label for="tipoTren" class="form-label">Tipo de Tren</label>
+            <input type="text" class="form-control" id="tipoTren" th:field="*{tipoTren}" placeholder="Tipo de Tren"
+                   required>
+        </div>
+        <div class="mb-3">
+            <label for="capacidad" class="form-label">Capacidad</label>
+            <input type="number" class="form-control" id="capacidad" th:field="*{capacidad}" placeholder="Capacidad"
+                   required>
+        </div>
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <input type="text" class="form-control" id="modelo" th:field="*{modelo}" placeholder="Modelo" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Tren</button>
+    </form>
+
+    <a href="/admin/trenes" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+
+</body>
+</html>

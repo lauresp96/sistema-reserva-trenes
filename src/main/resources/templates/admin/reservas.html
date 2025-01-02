@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Reservas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Listado de Reservas</h1>
+
+    <!-- Botón Volver a Administración -->
+    <a href="/admin" class="btn btn-secondary mb-3">Volver a Administración</a>
+
+    <a href="/admin/reservas/crear" class="btn btn-primary mb-3">Crear Nueva Reserva</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Numero de Asientos</th>
+            <th>Precio Total</th>
+            <th>Fecha Reserva</th>
+            <th>Estado</th>
+            <th>Viaje</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reserva : ${reservas}">
+            <!-- Usuario -->
+            <td th:text="${reserva.usuario.nombre}"></td>
+
+            <!-- Número de Asientos -->
+            <td th:text="${reserva.numeroAsientos}"></td>
+
+            <!-- Precio Total -->
+            <td th:text="${reserva.precioTotal}"></td>
+
+            <!-- Fecha de Reserva -->
+            <td th:text="${#dates.format(reserva.fechaReserva, 'dd/MM/yyyy HH:mm')}"></td>
+
+            <!-- Estado -->
+            <td th:text="${reserva.estado}"></td>
+
+            <!-- Viaje -->
+            <td>
+                <span th:each="viaje : ${reserva.viajes}" th:text="${viaje.origen.nombre + ' - ' + viaje.destino.nombre}"></span>
+            </td>
+
+            <!-- Acciones -->
+            <td>
+                <a th:href="@{/admin/reservas/editar/{id}(id=${reserva.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/admin/reservas/eliminar/{id}(id=${reserva.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

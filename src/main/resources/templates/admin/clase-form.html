@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${clase.id == null ? 'Crear Nueva Clase' : 'Editar Clase'}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 th:text="${clase.id == null ? 'Crear Nueva Clase' : 'Editar Clase'}"></h1>
+
+    <form th:action="@{${clase.id == null ? '/admin/clases/guardar' : '/admin/clases/editar/' + clase.id}}"
+          th:object="${clase}" method="post">
+
+        <!-- Nombre de la Clase -->
+        <div class="mb-3">
+            <label for="nombreClase" class="form-label">Nombre de la Clase</label>
+            <input type="text" class="form-control" id="nombreClase" th:field="*{nombreClase}" required>
+        </div>
+
+        <!-- Descripción -->
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
+        </div>
+
+        <!-- Botones -->
+        <button type="submit" class="btn btn-primary">Guardar Clase</button>
+    </form>
+
+    <a href="/admin/clases" class="btn btn-secondary mt-3">Cancelar</a>
+
+</div>
+</body>
+</html>

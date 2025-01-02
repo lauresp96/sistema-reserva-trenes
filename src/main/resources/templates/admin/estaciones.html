@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listado de Estaciones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1>Listado de Estaciones</h1>
+
+  <!-- Botón Volver a Administración -->
+  <a href="/admin" class="btn btn-secondary mb-3">Volver a Administración</a>
+
+  <a href="/admin/estaciones/crear" class="btn btn-primary mb-3">Crear Nueva Estación</a>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Ciudad</th>
+      <th>Provincia</th>
+      <th>Código Postal</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="estacion : ${estaciones}">
+      <td th:text="${estacion.nombre}"></td>
+      <td th:text="${estacion.ciudad}"></td>
+      <td th:text="${estacion.provincia}"></td>
+      <td th:text="${estacion.codigoPostal}"></td>
+      <td>
+        <a th:href="@{/admin/estaciones/editar/{id}(id=${estacion.id})}" class="btn btn-warning btn-sm">Editar</a>
+        <a th:href="@{/admin/estaciones/eliminar/{id}(id=${estacion.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

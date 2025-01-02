@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${viaje.id == null ? 'Crear Nuevo Viaje' : 'Editar Viaje'}"></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 th:text="${viaje.id == null ? 'Crear Nuevo Viaje' : 'Editar Viaje'}"></h1>
+
+  <form th:action="@{${viaje.id == null ? '/admin/viajes/guardar' : '/admin/viajes/editar/' + viaje.id}}"
+        th:object="${viaje}" method="post">
+
+    <!-- Fecha de Salida -->
+    <div class="mb-3">
+      <label for="fechaSalida" class="form-label">Fecha de Salida</label>
+      <input type="datetime-local" class="form-control" id="fechaSalida" th:field="*{fechaSalida}" required>
+    </div>
+
+    <!-- Fecha de Llegada -->
+    <div class="mb-3">
+      <label for="fechaLlegada" class="form-label">Fecha de Llegada</label>
+      <input type="datetime-local" class="form-control" id="fechaLlegada" th:field="*{fechaLlegada}" required>
+    </div>
+
+    <!-- Origen -->
+    <div class="mb-3">
+      <label for="origen" class="form-label">Origen</label>
+      <select class="form-select" id="origen" th:field="*{origen}" required>
+        <option th:each="estacion : ${estaciones}" th:value="${estacion.id}" th:text="${estacion.nombre}"></option>
+      </select>
+    </div>
+
+    <!-- Destino -->
+    <div class="mb-3">
+      <label for="destino" class="form-label">Destino</label>
+      <select class="form-select" id="destino" th:field="*{destino}" required>
+        <option th:each="estacion : ${estaciones}" th:value="${estacion.id}" th:text="${estacion.nombre}"></option>
+      </select>
+    </div>
+
+    <!-- Tren -->
+    <div class="mb-3">
+      <label for="tren" class="form-label">Tren</label>
+      <select class="form-select" id="tren" th:field="*{tren}" required>
+        <option th:each="tren : ${trenes}" th:value="${tren.id}" th:text="${tren.nombreTren}"></option>
+      </select>
+    </div>
+
+    <!-- Ruta -->
+    <div class="mb-3">
+      <label for="ruta" class="form-label">Ruta</label>
+      <select class="form-select" id="ruta" th:field="*{ruta}" required>
+        <option th:each="ruta : ${rutas}" th:value="${ruta.id}" th:text="${ruta.nombreRuta}"></option>
+      </select>
+    </div>
+
+    <!-- Botones -->
+    <button type="submit" class="btn btn-primary">Guardar Viaje</button>
+  </form>
+
+  <!-- Botón Volver a Administración -->
+  <a href="/admin" class="btn btn-secondary mt-3">Volver a Administración</a>
+
+  <a href="/admin/viajes" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+</body>
+</html>

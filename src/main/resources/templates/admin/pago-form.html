@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pago.id == null ? 'Registrar Nuevo Pago' : 'Editar Pago'}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 th:text="${pago.id == null ? 'Registrar Nuevo Pago' : 'Editar Pago'}"></h1>
+
+    <form th:action="@{${pago.id == null ? '/admin/pagos/guardar' : '/admin/pagos/editar/' + pago.id}}"
+          th:object="${pago}" method="post">
+
+        <div class="mb-3">
+            <label for="fechaPago" class="form-label">Fecha de Pago</label>
+            <input type="datetime-local" class="form-control" id="fechaPago" th:field="*{fechaPago}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="monto" class="form-label">Monto</label>
+            <input type="number" step="0.01" class="form-control" id="monto" th:field="*{monto}" placeholder="Monto" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <select class="form-select" id="estado" th:field="*{estado}" required>
+                <option value="PENDIENTE" th:selected="${pago.estado == 'PENDIENTE'}">Pendiente</option>
+                <option value="COMPLETADO" th:selected="${pago.estado == 'COMPLETADO'}">Completado</option>
+                <option value="ANULADO" th:selected="${pago.estado == 'ANULADO'}">Anulado</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Pago</button>
+    </form>
+
+    <a href="/admin/pagos" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+</body>
+</html>

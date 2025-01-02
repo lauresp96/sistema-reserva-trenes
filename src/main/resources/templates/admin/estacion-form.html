@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${estacion.id == null ? 'Crear Nueva Estación' : 'Editar Estación'}"></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 th:text="${estacion.id == null ? 'Crear Nueva Estación' : 'Editar Estación'}"></h1>
+
+  <form th:action="@{${estacion.id == null ? '/admin/estaciones/guardar' : '/admin/estaciones/editar/' + estacion.id}}"
+        th:object="${estacion}" method="post">
+
+    <!-- Nombre -->
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+    </div>
+
+    <!-- Ciudad -->
+    <div class="mb-3">
+      <label for="ciudad" class="form-label">Ciudad</label>
+      <input type="text" class="form-control" id="ciudad" th:field="*{ciudad}" required>
+    </div>
+
+    <!-- Provincia -->
+    <div class="mb-3">
+      <label for="provincia" class="form-label">Provincia</label>
+      <input type="text" class="form-control" id="provincia" th:field="*{provincia}" required>
+    </div>
+
+    <!-- Código Postal -->
+    <div class="mb-3">
+      <label for="codigoPostal" class="form-label">Código Postal</label>
+      <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" required>
+    </div>
+
+    <!-- Botones -->
+    <button type="submit" class="btn btn-primary">Guardar Estación</button>
+  </form>
+
+  <!-- Botón Volver a Administración -->
+  <a href="/admin" class="btn btn-secondary mt-3">Volver a Administración</a>
+
+  <a href="/admin/estaciones" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+</body>
+</html>

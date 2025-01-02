@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Facturas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Listado de Facturas</h1>
+    <a href="/admin/facturas/crear" class="btn btn-primary mb-3">Crear Nueva Factura</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Reserva</th>
+            <th>Fecha de Factura</th>
+            <th>Monto Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="factura : ${facturas}">
+            <td th:text="${factura.reserva.numeroReserva}"></td>
+            <td th:text="${factura.fechaFactura}"></td>
+            <td th:text="${factura.montoTotal}"></td>
+            <td th:text="${factura.estado}"></td>
+            <td>
+                <a th:href="@{/admin/facturas/editar/{id}(id=${factura.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/admin/facturas/eliminar/{id}(id=${factura.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/admin" class="btn btn-secondary mt-3">Volver a Administración</a>
+</div>
+</body>
+</html>
