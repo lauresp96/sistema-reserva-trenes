@@ -17,15 +17,11 @@ public class Admin_ReservaController {
 
     private final ReservaService reservaService;
     private final ViajeService viajeService;
-    private final PagoService pagoService;
-    private final FacturaService facturaService;
     private final UsuarioService usuarioService;
 
-    public Admin_ReservaController(ReservaService reservaService, ViajeService viajeService, PagoService pagoService, FacturaService facturaService, UsuarioService usuarioService) {
+    public Admin_ReservaController(ReservaService reservaService, ViajeService viajeService, UsuarioService usuarioService) {
         this.reservaService = reservaService;
         this.viajeService = viajeService;
-        this.pagoService = pagoService;
-        this.facturaService = facturaService;
         this.usuarioService = usuarioService;
     }
 
@@ -58,7 +54,9 @@ public class Admin_ReservaController {
     public String guardarReserva(@ModelAttribute Reserva reserva) throws Exception {
         reserva.getUsuario();
         reserva.getViajes();
+
         reservaService.guardar(reserva);
+
         return "redirect:/admin/reservas";
     }
 
@@ -66,9 +64,11 @@ public class Admin_ReservaController {
     public String formularioEditarReserva(@PathVariable Long id, Model model) {
         Reserva reserva = reservaService.encontrarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
         model.addAttribute("reserva", reserva);
         model.addAttribute("usuarios", usuarioService.mostrarTodos());
         model.addAttribute("viajes", viajeService.mostrarTodos());
+
         return "admin/reserva-form";
     }
 
@@ -77,9 +77,12 @@ public class Admin_ReservaController {
     public String guardarEdicion(@PathVariable Long id, @ModelAttribute Reserva reserva) throws Exception {
         Reserva reservaEditada = reservaService.encontrarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
         reservaEditada.setUsuario(reserva.getUsuario());
         reservaEditada.setViajes(reserva.getViajes());
+
         reservaService.editar(id, reserva);
+
         return "redirect:/admin/reservas";
     }
 

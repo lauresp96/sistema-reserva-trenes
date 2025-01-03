@@ -27,7 +27,7 @@ public class Reserva {
     private String estado;
     private Double precioTotal;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -38,10 +38,7 @@ public class Reserva {
             inverseJoinColumns = @JoinColumn(name = "viaje_id"))
     private List<Viaje> viajes;
 
-    @OneToMany (mappedBy = "reserva")
-    private List<Pago> pagos;
-
-    @OneToMany (mappedBy = "reserva")
+    @OneToMany(mappedBy = "reserva")
     private List<Factura> facturas;
 
     public Long getId() {
@@ -98,14 +95,6 @@ public class Reserva {
 
     public void setViajes(List<Viaje> viajes) {
         this.viajes = viajes;
-    }
-
-    public List<Pago> getPagos() {
-        return pagos;
-    }
-
-    public void setPagos(List<Pago> pagos) {
-        this.pagos = pagos;
     }
 
     public List<Factura> getFacturas() {

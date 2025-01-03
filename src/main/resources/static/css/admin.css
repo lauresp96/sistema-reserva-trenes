@@ -1,29 +1,38 @@
 /* Estilos generales */
-.container {
-    margin-top: 30px;
+body {
+    background-color: #f4f4f4; /* Color de fondo neutro */
+    color: #333; /* Color de texto oscuro */
 }
 
+/* Barra lateral */
+.sidebar {
+    background-color: #4c2882; /* Violeta azulado */
+    color: #fff; /* Texto blanco */
+}
+
+/* Encabezado */
 .header {
-    text-align: center;
-    margin-bottom: 40px;
+    background-color: #c6ce00; /* Amarillo verdoso */
+    color: #fff; /* Texto blanco */
 }
 
-.header h1 {
-    color: #007bff;
-}
-
-/* Estilos del menú */
-.menu-item {
-    font-size: 1.2rem;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border-radius: 5px;
-    margin-bottom: 10px;
+/* Enlaces */
+a {
+    color: #4c2882; /* Violeta azulado */
     text-decoration: none;
-    color: black;
-    display: block;
 }
 
-.menu-item:hover {
-    background-color: #ddd;
+a:hover {
+    color: #c6ce00; /* Amarillo verdoso */
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #4c2882; /* Violeta azulado */
+    border-color: #4c2882;
+}
+
+.btn-primary:hover {
+    background-color: #c6ce00; /* Amarillo verdoso */
+    border-color: #c6ce00;
 }

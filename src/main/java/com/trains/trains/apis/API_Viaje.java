@@ -1,6 +1,5 @@
 package com.trains.trains.apis;
 
-import com.trains.trains.entidades.Pago;
 import com.trains.trains.entidades.Viaje;
 import com.trains.trains.servicios.ViajeService;
 import org.springframework.http.HttpStatus;

@@ -1,48 +1,38 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${factura.id == null ? 'Crear Nueva Factura' : 'Editar Factura'}"></title>
+    <title>Formulario de Factura</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container mt-5">
-    <h1 th:text="${factura.id == null ? 'Crear Nueva Factura' : 'Editar Factura'}"></h1>
-
-    <form th:action="@{${factura.id == null ? '/admin/facturas/guardar' : '/admin/facturas/editar/' + factura.id}}"
-          th:object="${factura}" method="post">
-
-        <div class="mb-3">
-            <label for="reserva" class="form-label">Reserva</label>
-            <select class="form-select" id="reserva" th:field="*{reserva}" required>
-                <option th:each="reserva : ${reservas}" th:value="${reserva.id}" th:text="${reserva.numeroReserva}"></option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="fechaFactura" class="form-label">Fecha de Factura</label>
-            <input type="date" class="form-control" id="fechaFactura" th:field="*{fechaFactura}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="montoTotal" class="form-label">Monto Total</label>
-            <input type="number" step="0.01" class="form-control" id="montoTotal" th:field="*{montoTotal}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="estado" class="form-label">Estado</label>
-            <select class="form-select" id="estado" th:field="*{estado}" required>
-                <option value="PENDIENTE" th:selected="${factura.estado == 'PENDIENTE'}">Pendiente</option>
-                <option value="COMPLETADO" th:selected="${factura.estado == 'COMPLETADO'}">Completado</option>
-                <option value="ANULADO" th:selected="${factura.estado == 'ANULADO'}">Anulado</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar Factura</button>
-    </form>
-
-    <a href="/admin/facturas" class="btn btn-secondary mt-3">Cancelar</a>
-</div>
+<h1 th:text="${factura.id != null ? 'Editar Factura' : 'Crear Nueva Factura'}"></h1>
+<form th:action="${factura.id != null ? '/admin/facturas/editar/' + factura.id : '/admin/facturas/guardar'}" method="post">
+    <div>
+        <label for="fechaEmision">Fecha de Emisión</label>
+        <input type="datetime-local" id="fechaEmision" name="fechaEmision" th:value="${factura.fechaEmision}" required>
+    </div>
+    <div>
+        <label for="monto">Monto</label>
+        <input type="number" step="0.01" id="monto" name="monto" th:value="${factura.monto}" required>
+    </div>
+    <div>
+        <label for="estadoPago">Estado de Pago</label>
+        <input type="text" id="estadoPago" name="estadoPago" th:value="${factura.estadoPago}" required>
+    </div>
+    <select id="reserva" name="reserva.id" required>
+        <option th:each="reserva : ${reservas}"
+                th:value="${reserva.id}"
+                th:text="${reserva.id + ' - ' + (reserva.usuario != null ? reserva.usuario.nombre + ' ' + reserva.usuario.apellido : 'Sin usuario')} "
+                th:selected="${factura.reserva != null and reserva.id == factura.reserva.id}">
+        </option>
+    </select>
+    <div>
+        <button type="submit">Guardar</button>
+        <a href="/admin/facturas">Cancelar</a>
+    </div>
+</form>
 </body>
 </html>
