@@ -38,7 +38,7 @@ public class Reserva {
             inverseJoinColumns = @JoinColumn(name = "viaje_id"))
     private List<Viaje> viajes;
 
-    @OneToMany(mappedBy = "reserva")
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Factura> facturas;
 
     public Long getId() {

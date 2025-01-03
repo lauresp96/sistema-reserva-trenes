@@ -26,7 +26,7 @@ public class Viaje {
     private LocalDateTime fechaLlegada;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "viaje_estacion",
             joinColumns = @JoinColumn(name = "viaje_id"),
@@ -34,7 +34,7 @@ public class Viaje {
     @JsonIgnore
     private List<Estacion> estaciones = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "viajes")
+    @ManyToMany(mappedBy = "viajes", cascade = CascadeType.REMOVE)
     private List<Reserva> reservas;
 
     @JsonManagedReference
@@ -42,11 +42,11 @@ public class Viaje {
     @JoinColumn(name = "tren_id")
     private Tren tren;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "origen_id")
     private Estacion origen;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "destino_id")
     private Estacion destino;
 

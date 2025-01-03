@@ -4,8 +4,10 @@ package com.trains.trains.controladores.Admin;
 import com.trains.trains.entidades.Usuario;
 import com.trains.trains.servicios.ReservaService;
 import com.trains.trains.servicios.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +18,9 @@ import java.util.List;
 public class Admin_UsuarioController {
 
     private final UsuarioService usuarioService;
-    private final ReservaService reservaService;
 
-    public Admin_UsuarioController(UsuarioService usuarioService, ReservaService reservaService) {
+    public Admin_UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
-        this.reservaService = reservaService;
     }
 
     @GetMapping
@@ -37,7 +37,10 @@ public class Admin_UsuarioController {
     }
 
     @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute Usuario usuario) throws Exception {
+    public String guardarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            return "admin/usuario-form";
+        }
         Usuario usuarioCreado = usuarioService.guardar(usuario);
         return "redirect:/admin/usuarios";
     }
@@ -53,7 +56,10 @@ public class Admin_UsuarioController {
     }
 
     @PostMapping("/editar/{id}")
-    public String guardarEdicion(@PathVariable Long id, @ModelAttribute Usuario usuario) throws Exception {
+    public String guardarEdicion(@PathVariable Long id, @ModelAttribute Usuario usuario, @Valid BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            return "admin/usuario-form";
+        }
         usuario.setId(id);
         usuarioService.editar(id, usuario);
         return "redirect:/admin/usuarios";
@@ -64,6 +70,5 @@ public class Admin_UsuarioController {
         usuarioService.eliminar(id);
         return "redirect:/admin/usuarios";
     }
-
 
 }

@@ -29,7 +29,7 @@ public class Tren {
     private String modelo;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "tren", cascade = CascadeType.MERGE, orphanRemoval = false)
+    @OneToMany(mappedBy = "tren", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Viaje> viajes;
 
     public Long getId() {
