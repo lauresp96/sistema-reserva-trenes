@@ -32,7 +32,7 @@ public class UsuarioController {
         }
         usuario.setRol("USER");
         usuarioService.guardar(usuario);
-        return "redirect: /login";
+        return "redirect:/login";
     }
 
 
